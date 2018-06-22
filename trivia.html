@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <script src="https://code.jquery.com/jquery.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One|Press+Start+2P" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trivia</title>
+</head>
+<body>
+        <video autoplay muted loop id="myVideo">
+                <source src="aliens-back.mp4" type="video/mp4">
+                </video>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <img class="title" src="Aliens-logo.svg.png">
+            </div>
+            <div class="col-md-3">
+                <p id="timer">Time Remaining:<span id="timeLeft"></span></p><br/>
+                <p id="timer">Correct:<span id="correctAnswers"></span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary btn-lg" id="startGame">Start Game</button>
+                <button class="btn btn-primary btn-lg" id="resetGame" style="display: none" onclick="reset()">Reset Game</button>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="questions" style="display: none">
+        <div class="row">
+            <div class="col-lg-9" class="qBox">
+                <form>
+                <p>1. What was the initial budget for Aliens?</p>
+                <input type="radio" name="radioValue1" value="1"/>
+                    <label>$18 Million</label><br/>
+                <input type="radio" name="radioValue1" value= "0"/>
+                    <label>$15 Million</label><br/>
+                <input type="radio" name="radioValue1" value="0"/>
+                    <label>$10 Million</label><br/>
+                <input type="radio" name="radioValue1" value="0"/>
+                    <label>$25 Million</label><br/>
+            
+                <p>2. Who played Private Hudson?</p>
+                <input type="radio" name="radioValue2" value="0">
+                    <label>Paul Reiser</label><br/>
+                <input type="radio" name="radioValue2" value="1">
+                    <label>Bill Paxton</label><br/>
+                <input type="radio" name="radioValue2" value="0">
+                    <label>Al Matthews</label><br/>
+                <input type="radio"name="radioValue2"  value="0">
+                <label>William Hope</label>
+            
+                <p>3. What planet was the colony on?</p>
+                <input type="radio" name="radioValue3" value="0">
+                    <label>Titan</label><br/>
+                <input type="radio" name="radioValue3" value="1">
+                    <label>LV-426</label><br/>
+                <input type="radio" name="radioValue3" value="0">
+                    <label>LV-550</label><br/>
+                <input type="radio"  name="radioValue3" value="0">
+                <label>Spartan-117</label>
+            
+        
+    
+                <p>4. What was the name of the ship the colonial marines used?</p>
+                <input type="radio" name="radioValue4" value="1"/>
+                    <label>Sulaco</label><br/>
+                <input type="radio" name="radioValue4"  value="0"/>
+                    <label>Serenity</label><br/>
+                <input type="radio" name="radioValue4"  value="0"/>
+                    <label>Nostromo</label><br/>
+                <input type="radio" name="radioValue4" value="0"/>
+                    <label>Pillar of Autumn</label><br/>
+            
+                <p>5. Who coined the phrase "Game Over Man!"? </p>
+                <input type="radio" name="radioValue5" value="0">
+                    <label>Burke</label><br/>
+                <input type="radio" name="radioValue5" value="1">
+                    <label>Hudson</label><br/>
+                <input type="radio" name="radioValue5" value="0">
+                    <label>Bishop</label><br/>
+                <input type="radio" name="radioValue5" value="0">
+                    <label>Apone</label>
+            
+                <p>6. How many puppeteers did it take to operate the queen?</p>
+                <input type="radio" name="radioValue6" value="0">
+                    <label>4</label><br/>
+                <input type="radio" name="radioValue6" value="1">
+                    <label>14</label><br/>
+                <input type="radio" name="radioValue6" value="0">
+                    <label>1</label><br/>
+                <input type="radio" name="radioValue6" value="0">
+                    <label>8</label>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-lg" onclick="return checkAnswer()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer">
+            <div class="row">
+                <div class="col-md-12">
+                        <audio id="myAudio" src="futile.mp3" preload="auto">
+                        </audio>
+                       
+                       
+                <!-- <audio controls id="player">
+                        <source src="background.mp3" type="audio/mpeg">
+                    </audio> -->
+                    <button onClick="togglePlay()" class="btn btn-lg btn-dark" title="Play/Pause Song"><span class="fa fa-music"></span></button> 
+                </div>
+            </div>
+        </div>
+</body>
+<script type="text/javascript">
+
+var myAudio = document.getElementById("myAudio");
+document.getElementById("myAudio").loop = true;
+var isPlaying = false;
+
+//for the background music
+function togglePlay() {
+  if (isPlaying) {
+    myAudio.pause()
+  } else {
+    myAudio.play();
+  }
+};
+myAudio.onplaying = function() {
+  isPlaying = true;
+};
+myAudio.onpause = function() {
+  isPlaying = false;
+};
+
+var correct = 0;
+var timeLeft = 45;
+var intervalId;
+// var answerValue = $("input[name = radioValue]:checked").val();
+console.log(correct);
+
+ function run() {
+      clearInterval(intervalId);
+      intervalId = setInterval(decrement, 1000);
+    }
+
+function decrement() {
+    if (timeLeft > 0){
+    timeLeft--;
+$("#timeLeft").html(timeLeft.toString())
+    }
+if (timeLeft === 0) {
+    $("#resetGame").css("display", "block");
+    clearInterval(intervalId);
+  alert("Time Up!");
+}
+}
+
+function checkAnswer()
+  {       
+      clearInterval(intervalId)  
+      $("#resetGame").css("display", "block");
+correct = 0;          
+for(var i = 1; i <= 7; i++) {
+  var radios = document.getElementsByName('radioValue'+i);
+  for(var j = 0; j < radios.length; j++) {
+    var radio = radios[j];
+    if(radio.value == 1 && radio.checked) {
+      correct++;
+      $("#correctAnswers").html(correct.toString());
+    }
+  }
+ }                   
+  }
+
+$("#startGame").on("click", function(){
+    $("#questions").css("display", "block");
+    if (correct < 6){
+    run();
+    decrement();
+        console.log(correct)}
+    })
+function reset (){
+    $("#questions").css("display", "none");
+    $("#resetGame").css("display", "none");
+    timeLeft = 45;
+    correct = 0;
+}
+</script>
+</html>
